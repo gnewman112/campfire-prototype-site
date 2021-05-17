@@ -1,0 +1,87 @@
+<mat-divider id="divider"></mat-divider>
+
+<div id="allControls">
+    <button mat-mini-fab (click)="openBottomSheet()" id="addEmber"
+        matTooltip="Add to this feed" matTooltipPosition="after">
+        <mat-icon>add_circle_outline</mat-icon>
+        <span id="extendedText">Add Stream</span>
+    </button>
+
+    <div id=fullAccounts>
+        <div class="verticalSpacer"></div>
+        <div *ngFor="let stream of getValues(streams); first as isFirst; index as i" id="fullDetails">
+            <div id="headingRow">
+                <h2 id="heading">r/{{stream.subPlatform}}</h2>
+                <button mat-stroked-button (click)="removeFromEmber(stream, i)" id="removeFromEmber" 
+                    matTooltip="Remove from your feeds" matTooltipPosition="after">
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div>
+            
+            <div id="subheadingRow">
+                <button mat-stroked-button id="changeSort"
+                    [matMenuTriggerFor]="redditSortMenu" [matMenuTriggerData]="{stream: stream, i: i}">
+                    <mat-icon>sort</mat-icon>
+                </button>
+                <h4 id="subHeading">Sort: {{stream.sort}}</h4>
+                <h4 *ngIf="stream.time">-</h4>
+                <h4 *ngIf="stream.time" id="subHeading">{{timeConversion(stream.time)}}</h4>
+            </div>
+            <mat-slider (change)="onSliderChange(stream, $event.value, i)"
+            min="1" max="10" step="1" value="10" thumbLabel id="slider"
+            matTooltip="Controls proportion of content relative to other content sliders" matTooltipPosition="right"></mat-slider>
+        </div>
+
+        
+        <h4 id="addMessage">To add to this stream click the + above. Otherwise click the + in the bottom right menu.</h4>
+        
+    </div>
+    
+    <div id="headingsContainer">
+        <div class="verticalSpacer"></div>
+        <div *ngFor="let stream of getValues(streams)" id="justHeading">
+            <h2>r/{{stream.subPlatform}}</h2>
+        </div>
+    </div>
+</div>
+
+<div id="sparkContainer" HorizontalScroll
+    infiniteScroll [horizontal]="true" [infiniteScrollDistance]="2" [scrollWindow]="false"
+    (scrolled)="scrolledRight$.next(null)">
+    <ng-container *ngFor="let spark of sparks">
+        <app-spark *ngIf="!isString(spark); else endOfStream" [spark]="spark" id="{{spark.name}}" class="spark"></app-spark>
+        
+        <ng-template #endOfStream>
+            <h1 class="endOfStreamText">End of r/{{spark}} stream</h1>
+            <div class="padding"></div>
+        </ng-template>
+    </ng-container>
+    <div *ngIf="loading">
+        <h1 class="loading">Loading...</h1>
+    </div>
+    <div *ngIf="!loading && !sparks.length">
+        <h1 class="loadingError">Loading error. No sparks available.</h1>
+    </div>
+</div>
+
+<mat-menu #redditSortMenu="matMenu">
+    <ng-template matMenuContent let-stream="stream" let-i="i">
+        <h5 id="sortHeader">Sort {{stream.subPlatform}} by:</h5>   
+        <button mat-menu-item (click)="changeEmberSort(stream, i, 'new')">New</button>
+        <button mat-menu-item (click)="changeEmberSort(stream, i, 'rising')">Rising</button>
+        <button mat-menu-item (click)="changeEmberSort(stream, i, 'hot')">Hot</button>
+        <button mat-menu-item *ngIf="stream.subreddit == 'Home'" (click)="changeEmberSort(stream, i, 'best')">Best</button>
+        <button mat-menu-item [matMenuTriggerFor]="topTimeMenu" [matMenuTriggerData]="{stream: stream, i: i}">Top</button>
+    </ng-template>
+</mat-menu>
+
+<mat-menu #topTimeMenu="matMenu">
+    <ng-template matMenuContent let-stream="stream" let-i="i">
+        <button mat-menu-item (click)="changeEmberSort(stream, i, 'top', 'hour')">This Hour</button>
+        <button mat-menu-item (click)="changeEmberSort(stream, i, 'top', 'day')">Today</button>
+        <button mat-menu-item (click)="changeEmberSort(stream, i, 'top', 'week')">This Week</button>
+        <button mat-menu-item (click)="changeEmberSort(stream, i, 'top', 'month')">This Month</button>
+        <button mat-menu-item (click)="changeEmberSort(stream, i, 'top', 'year')">This Year</button>
+        <button mat-menu-item (click)="changeEmberSort(stream, i, 'top', 'all')">All Time</button>
+    </ng-template>
+</mat-menu>

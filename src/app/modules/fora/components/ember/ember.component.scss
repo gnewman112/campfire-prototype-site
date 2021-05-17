@@ -1,0 +1,226 @@
+@import '~zzz-styling/theme-colors';
+
+#divider {
+    position: absolute;
+    top: -1px;
+    width: 100%;
+}
+
+#allControls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+
+    &:hover, &:focus, &:active {
+        #fullAccounts { transform: translateX(0%); }
+
+        #addEmber {
+            width: 160px;
+            
+            #extendedText {
+                letter-spacing: 1.4px;
+                opacity: 1;
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+#addEmber {
+    transition: width 66ms linear 10ms;
+    border-radius: 29px;
+    align-self: flex-start;
+    margin: 1em 0.4em;
+    padding: 0 16px 0 8px;
+    z-index: 10;
+    background-color: get-theme-color("accent", "lighter");
+
+    mat-icon { line-height: 22px; }
+
+    #extendedText { 
+        opacity: 0;
+        letter-spacing: -9px;
+        vertical-align: baseline;
+        font-weight: 400;
+        text-transform: uppercase;
+        transition: letter-spacing 66ms linear 10ms, opacity 66ms linear, margin-left 50ms linear;}
+}
+
+#fullAccounts, #headingsContainer { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    min-width: 3.6em;
+    background-color: get-theme-color("primary", "default");
+    color: get-theme-color("primary", "default-contrast");
+
+    .verticalSpacer {
+        height: 4em;
+    }
+}
+
+#fullAccounts {
+    transition: transform 100ms linear;
+    transform: translateX(-100%);
+    z-index: 9;
+    min-width: 14em;
+    max-width: 28em;
+    overflow-y: scroll;
+}
+
+#justHeading {
+    display: flex;
+    flex-flow: column nowrap;
+
+    & > * {
+        writing-mode: vertical-rl;
+        align-self: center;
+        max-height: 8em;
+        overflow: hidden;
+        margin: 1em 0 0.5em;
+        letter-spacing: 0.04em;
+    }
+}
+
+#fullDetails {
+    border-bottom: 1px grey solid
+}
+
+#subheadingRow, #headingRow {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-top: 0.5em;
+    padding: 0 0.25em;
+}
+
+#headingRow {
+    justify-content: space-between;
+
+    #heading {
+        max-width: 11em;
+        margin: 0;
+        padding: 0 0.4em;
+        align-self: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+#subheadingRow {
+    background-color: get-theme-color("primary", "default");
+    color: get-theme-color("primary", "default-contrast");
+    border: none;
+
+    #subHeading {
+        margin: 0;
+        padding: 0 0.4em;
+        text-transform: capitalize;
+        white-space: nowrap;
+    }
+}
+
+#removeFromEmber, #changeSort {
+    min-width: unset;
+    padding: unset;
+    background-color: get-theme-color("accent", "lighter");
+    color: white;
+}
+
+#removeFromEmber {
+    vertical-align: middle;
+    width: 2.9em !important;
+    margin: 0 8px;
+
+    &:hover {
+        background-color: get-theme-color("warn", "default");
+        color: get-theme-color("warn", "default-contrast");
+    }
+}
+
+#changeSort {
+    font-size: 22px;
+    line-height: 28px;
+    height: 1.2em;
+    width: 1.2em;
+    margin: 0 0.3em;
+
+    mat-icon {
+        font-size: 18px;
+        height: inherit;
+        vertical-align: inherit;
+    }
+}
+
+#slider {
+    margin-left: 1em;
+    margin-right: 1.5em;
+    width: 85%;
+}
+
+#addMessage {
+    margin: 6px 8px 0;
+    text-align: center;
+    font: 200 14px/18px "Work Sans";
+}
+
+#sparkContainer {
+    position: absolute;
+    top: 0;
+    left: 3.5em;
+    width: calc(100vw - 3.4em);
+    height: calc(100% - 0.8rem);
+    padding: 0.4rem;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-content: flex-start;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    .spark {
+        padding: 0.4rem;
+        min-width: 30rem;
+        /* width: 30rem; */
+        max-width: 95%;
+        max-height: calc(100% - 0.8rem);
+    }
+}
+
+.endOfStreamText {
+    writing-mode: vertical-rl;
+    text-align: center;
+    height: 100%;
+    margin: 0 0.6rem 0 0.4rem;
+    padding: 0 0.4rem;
+    border: 2px solid get-theme-color("foreground", "icon");
+    border-top: none;
+    border-bottom: none;
+}
+
+.padding {
+    height: 100%;
+    width: 1px;
+    color: get-theme-color("background", "background");
+}
+
+@keyframes flickerAnimation {
+    0%   { opacity:1; }
+    50%  { opacity:0; }
+    100% { opacity:1; }
+}
+
+.loading { animation: flickerAnimation 2s infinite; }
+
+.loading, .loadingError {
+    margin-left: 2em;
+    font-size: 300%;
+}
+
+#sortHeader {
+    padding: 0 12px 0 5px;
+}

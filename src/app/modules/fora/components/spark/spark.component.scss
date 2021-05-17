@@ -1,0 +1,291 @@
+.post {
+    border-radius: 2px;
+    /* box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.1), 0px 1px 1px 0px rgba(0, 0, 0, 0.07), 0px 1px 3px 0px rgba(0, 0, 0, 0.06); */
+
+    #header {
+        display: flex;
+        flex-flow: row nowrap;
+    }    
+}
+
+.crosspost {
+    border-radius: 4px;
+    border: 1px solid #EDEFF1;
+    border-bottom: none;
+    box-shadow: none;
+    padding: 0 16px;
+    margin: 6px 6px 0;
+
+    .crosspostHeader {
+        display: block;
+        height: 40px;
+        overflow-y: hidden;
+        margin: 0 -6px;
+
+        > * { 
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0;
+            word-break: break-all;
+        }
+
+        #up { 
+            vertical-align: top;
+            margin-top: 5px;
+        }
+        #score { margin: 6px 0; }
+        #down { 
+            vertical-align: bottom; 
+            margin-bottom: 5px;
+        }
+        #text { 
+            padding-left: 1em; 
+            display: inline;
+
+            * {
+                padding: 0.05em;
+                display: inline;
+            }
+        }
+    }
+}
+
+#votes {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding: 16px 6px 8px;
+    margin: -16px 0 0 -16px;
+    width: 40px;
+    height: 92px;
+    background-color: lightgray;
+
+    .vote {
+        margin: -6px 0;
+    }
+
+    .sparkScore {
+        margin: 0;
+    }
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.titleGroup{
+    display: contents;
+
+    mat-card-title-group {
+        flex-direction: column;
+        width: calc(100% - 64px);
+        padding-left: 6px;
+
+        mat-card-title {
+            max-height: 1.75em;
+            line-height: 1em;
+            overflow-y: hidden;
+            text-overflow: ellipsis;
+            padding-bottom: 0.33em;
+            margin: unset;
+        }
+
+        mat-card-subtitle {
+            margin-bottom: 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+
+    mat-icon {
+        align-self: flex-start;
+        margin: 0 0 0 auto;
+    }
+}
+
+.flair { 
+    margin-bottom: auto;
+
+    & > * {
+        margin-right: 6px;
+        padding: 1px 4px;
+        border-radius: 4px;
+        
+        mat-icon {
+            font-size: 18px;
+            height: 1em;
+            width: 1em;
+            vertical-align: -4px;
+        }
+
+        h5 { display: inline; }
+    }
+
+    .NSFW { color: red; }
+    .spoiler { background-color: khaki;}
+    .mod { background-color: lightgreen; }
+    .oc { background-color: lightpink;}
+    .defaultFlair { background-color: lightblue; }
+}
+
+.standardContent {
+    display: block;
+    margin: 0 -16px;
+    
+    & > *:not(.selftext) {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .video {
+        min-width: 100%;
+        background: black;
+    }
+
+    .selftext {
+        position: relative;
+        margin: 0 16px;
+
+        #text {
+            overflow-y: scroll;
+            max-height: inherit;
+        }
+    }
+
+    .overflowSelftext {
+        @extend .selftext;
+
+        mask: linear-gradient(black, black) no-repeat, linear-gradient(black, transparent) bottom no-repeat;
+        mask-size: 100% calc(100% - 9rem), 100% 10rem;
+    }
+    
+    .galleryContainer {
+        position: relative;
+        height: 100%;
+
+        .displayedImage, .hiddenImage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+
+            img {
+                display: block;
+                margin: 0 auto;
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
+
+        .displayedImage {
+            z-index: 1;
+            background-color: black;
+            width: 100%;
+        }
+
+        .hiddenImage {
+            z-index: 0;
+        }
+
+        #previous, #next {
+            position: absolute;
+            top: 50%;
+            z-index: 2;
+            transform: translateY(-50%);
+        }
+
+        #previous { left: 0.3rem; }
+        #next { right: 0.3rem;}
+
+        #galleryIndex {
+            position: absolute;
+            top: 2%;
+            left: 2%;
+            z-index: 2;
+            padding: 0 10px;
+            border-radius: 14px;
+            color: whitesmoke;
+            background-color: #37474f;
+        }
+    }
+
+    .externalLink {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        margin: 6px 16px 0;
+        
+        .linkText {
+            width: calc(100% - 14em);
+            
+            h3 { 
+                margin: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        .thumbnail {
+            position: relative;
+            img {
+                height: 6.5em;
+                width: auto;
+                max-width: 13em;
+                border-radius: 6px;
+                border: 2px solid darkgray;
+            }
+
+            mat-icon {
+                position: absolute;
+                top: 2px;
+                right: 2px;
+                height: 1em;
+                width: 1em;
+                font-size: 16px;
+                color: white;
+                background: darkgray;
+            }
+        }
+    }
+}
+
+.nsfwContent {
+    overflow: hidden;
+    cursor: pointer;
+    margin: 0 -16px;
+    min-height: 5em;
+
+    .blur {
+        filter: blur(50px);
+    }
+    
+    .nsfwText {
+        display: initial;
+        position: absolute;
+        top:50%;
+        z-index: 1;
+        width: 100%;
+        text-align: center;
+        color: red;
+        text-shadow: 0.5px 0.5px black;
+        filter: blur(0);
+
+        h1 { font-size: 300%; }
+    }
+}
+
+mat-card-actions > * {
+    padding: 0 8px;
+    margin: 0;
+
+    * {
+        display: inline;
+        vertical-align: middle;
+    }
+
+    .action_icon {
+        font-size: 21px;
+    }
+}

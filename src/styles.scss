@@ -1,0 +1,83 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+body {
+  overflow-y: hidden;
+
+  * {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  }
+}
+
+::-webkit-scrollbar { 
+    width: 0;
+    height: 0;
+}
+
+@import '~@angular/material/theming';
+@import '~zzz-styling/styling.scss';
+@import './theme.scss';
+@include add-theme-css($my-theme);
+
+
+// Change index.html if more fonts or font weights are needed
+$custom-typography: mat-typography-config(
+  $font-family: '"Work Sans", sans-serif', /*
+  $display-4:     mat-typography-level(112px, 112px, 300),
+  $display-3:     mat-typography-level(56px, 56px, 400),
+  $display-2:     mat-typography-level(45px, 48px, 400),
+  $display-1:     mat-typography-level(34px, 40px, 400), 
+  $headline:      mat-typography-level(50px, 56px, 300), */
+  $title:         mat-typography-level(22px, 32px, 500), /*
+  $subheading-2:  mat-typography-level(22px, 32px, 500), 
+  $subheading-1:  mat-typography-level(16px, 16px, 500), 
+  $body-2:        mat-typography-level(14px, 24px, 500), */
+  $body-1:        mat-typography-level(15px, 20px, 400), /*
+  $caption:       mat-typography-level(12px, 20px, 400), 
+  $button:        mat-typography-level(14px, 14px, 500),
+    // Line-height must be unit-less fraction of the font-size.
+  $input:         mat-typography-level(16px, 1.25, 400) */);
+
+@include angular-material-typography($custom-typography);
+@include mat-core($custom-typography);
+
+
+
+pre { white-space: pre-wrap;}
+
+.mat-button:not([disabled]):hover mat-icon {
+  color: #689f38; //accent
+}
+
+.mat-tooltip {
+  font-size: 14px !important;
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+.mat-mini-fab, .mat-icon-button {
+  vertical-align: text-top !important;
+}
+
+.mat-icon:not(.excludeIcon) { // delete this once angular material fixes the FAB icon alignment
+  line-height: 22px !important;
+}
+
+.mat-bottom-sheet-container {
+  padding: 0 !important;
+  max-width: 80vw !important;
+  max-height: 95vh !important;
+}
+
+.mat-dialog-container {
+  padding: 0.3em !important;
+  margin: 1em;
+}
+
+.mat-menu-panel {
+  min-width: 65px !important;
+}

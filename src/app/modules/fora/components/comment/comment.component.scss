@@ -1,0 +1,113 @@
+.hiddenComment {
+    .votes,
+    .commentText,
+    .commentActions,
+    .commentReplies {
+        display: none;
+    }
+}
+
+.commentContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    border-top: 2px grey solid;
+}
+
+.votes {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    .vote {
+        margin: -8px 0;
+    }
+}
+
+.commentLineContainer {
+    height: calc(100% - 48px);
+    width: 100%;
+    text-align: center;
+
+    .commentLine{
+        display: inline-block;
+        border-left: 1.5px rgba(20, 20, 20, 0.6) solid;
+        height: 100%;
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        .commentLine {
+            border-width: 3px;
+            border-color: #689f38; //accent
+        }
+    }
+}
+
+.expandComment {
+    display: inline;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: #689f38; // accent
+
+    mat-icon { vertical-align: middle;}
+}
+
+.commentBody {
+    display: inline-flex;
+    flex-flow: column nowrap;
+    width: calc(100% - 40px);
+}
+
+.commentHeader {
+    padding: 4px 0;
+
+    & > h5 {
+        display: inline;
+        margin-right: 1em;
+    }
+
+    #author { font-weight: 700; }
+    #time { font-style: italic}
+
+    .flair > * {
+        margin-right: 6px;
+        padding: 1px 4px;
+        border-radius: 4px;
+        
+        mat-icon {
+            font-size: 18px;
+            height: 1em;
+            width: 1em;
+            vertical-align: -4px;
+        }
+
+        h5 { display: inline; }
+    }
+}
+
+.mod { background-color: lightgreen; }
+.op { background-color: lightsalmon; }
+.cakeDay { background-color: plum;}
+.defaultFlair { background-color: lightgray; }
+
+
+
+.commentText { padding-right: 1em; }
+
+.commentActions > * {
+    padding: 0 6px 0;
+
+    * {
+        display: inline;
+        vertical-align: middle;
+    }
+
+    .action_icon {
+        font-size: 21px;
+    }
+}
+
+.commentReplies:first-child {
+    margin-top: 1em;
+}

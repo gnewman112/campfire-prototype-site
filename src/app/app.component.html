@@ -1,0 +1,61 @@
+<mat-toolbar class="appToolbar" [ngClass]="{'aboutToolbar' : onAboutPage}" id="toolbar">
+  <a [routerLink]="['home']" id="homeLink">
+    <img src="assets\Name.png" id="homeImage">
+    <span id="homeText">Campfire</span>
+  </a>
+  
+  <span class="spacer"></span>
+
+  <button mat-icon-button id="toolbarDropdown"
+    [matMenuTriggerFor]="buttonsMenu" (menuOpened)="toggleIcon(true)" (menuClosed)="toggleIcon(false)">
+      <div class="icon-bar" [@hamburguerX]="isHamburger ? 'hamburguer' : 'topX'"></div>
+      <div class="icon-bar" [@hamburguerX]="isHamburger ? 'hamburguer' : 'hide'"></div>
+      <div class="icon-bar" [@hamburguerX]="isHamburger ? 'hamburguer' : 'bottomX'"></div>
+  </button>
+
+  
+  <a mat-button      [routerLink]="['home']" class="toolbarButton"
+    routerLinkActive="active">HOME
+  </a>
+
+  <a mat-button      [routerLink]="['about_this_site']" class="toolbarButton"
+    routerLinkActive="active">ABOUT THIS SITE
+  </a>
+
+  <a mat-button      [routerLink]="['fora']" class="toolbarButton"
+    routerLinkActive="active" *ngIf="isAuthenticated">FORA
+  </a>
+
+  <button mat-button [routerLink]="['login']" class="toolbarButton"
+    *ngIf="!isAuthenticated">LOGIN
+  </button>
+
+  <button mat-button (click)="logout()" class="toolbarButton"
+    *ngIf="isAuthenticated">LOGOUT
+  </button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+
+<mat-menu #buttonsMenu="matMenu">
+  <a mat-menu-item      [routerLink]="['home']" class="dropdownButton"
+    routerLinkActive="active">HOME
+  </a>
+
+  <a mat-menu-item      [routerLink]="['about_this_site']" class="dropdownButton"
+    routerLinkActive="active">ABOUT THIS SITE
+  </a>
+
+  <a mat-menu-item      [routerLink]="['fora']" class="dropdownButton"
+    routerLinkActive="active" *ngIf="isAuthenticated">FORA
+  </a>
+
+  <button mat-menu-item [routerLink]="['login']" class="dropdownButton"
+    *ngIf="!isAuthenticated">LOGIN
+  </button>
+
+  <button mat-menu-item (click)="logout()" class="dropdownButton"
+    *ngIf="isAuthenticated">LOGOUT
+  </button>
+</mat-menu>

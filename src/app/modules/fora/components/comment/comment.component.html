@@ -1,0 +1,85 @@
+<div [ngClass]="hideComment ? 'hiddenComment' : 'commentContainer'">
+    <div class="votes">
+        <button mat-icon-button (click)="vote(true)" [color]="comment.likes ? 'accent': 'default'" class="vote upvote">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+        <button mat-icon-button (click)="vote(false)" [color]="comment.likes==false ? 'warn' : 'default'" class="vote downvote">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+
+        <div class="commentLineContainer" (click)="hideComment = !hideComment">
+            <span class="commentLine"></span>
+        </div>
+    </div>
+
+    <div *ngIf="hideComment" class="expandComment" (click)="hideComment = !hideComment">
+        <mat-icon>arrow_drop_down_circle</mat-icon>
+    </div>
+
+    <div class="commentBody" id="{{comment.name}}">
+        <div class="commentHeader">
+            <h5 id="author">{{comment.author}}</h5>
+            <h5 id="time">{{comment.createdString}}</h5>
+            <h5 id="score">Score: {{score}}</h5>
+            <span class="flair">
+                <span *ngIf="comment.distinguished == 'moderator'" class="mod">
+                    <mat-icon>supervisor_account</mat-icon>
+                    <h5>Moderator</h5>
+                </span>
+
+                <span *ngIf="comment.is_submitter" class="op">
+                    <mat-icon>anchor</mat-icon>
+                    <h5>Original Poster</h5>
+                </span>
+
+                <span *ngIf="comment.author_cakeday" class="cakeDay">
+                    <mat-icon>cake</mat-icon>
+                    <h5>Author Cakeday</h5>
+                </span>
+                
+                <span *ngIf="comment.locked" class="defaultFlair">
+                    <mat-icon>lock</mat-icon>
+                    <h5>Locked</h5>
+                </span>
+
+                <span *ngIf="comment.stickied" class="defaultFlair">
+                    <mat-icon>push_pin</mat-icon>
+                    <h5>Stickied</h5>
+                </span>
+
+                <span *ngIf="comment.edited" class="defaultFlair">
+                    <h5>Edited {{comment.editedString}}</h5>
+                </span>
+            </span>
+        </div>
+
+        <div class="commentText" [innerHTML]="bodyText"></div>
+
+        <div class="commentActions">
+            <button mat-button [disabled]="comment.archived || comment.locked">
+                <mat-icon class="action_icon">comment</mat-icon>
+                <h5>Reply</h5>
+            </button>
+            
+            <a mat-button href="{{'https://www.reddit.com' + this.comment.permalink}}" rel="noopener" target="_blank">
+                <mat-icon class="action_icon">open_in_new</mat-icon>
+                <h5>View on Reddit</h5>
+            </a>
+            
+            <button mat-button (click)="copyLinkToClipboard()">
+                <mat-icon class="action_icon">link</mat-icon>
+                <h5>Copy Link</h5>
+            </button>
+        </div>
+
+        <div class="commentReplies">
+            <ng-container *ngFor="let reply of displayedReplies">
+                <app-comment [comment]="reply"></app-comment>
+            </ng-container>
+
+            <div *ngIf="remainingReplies.length">
+                <button mat-button color="accent" (click)="showRemainingComments()">Show {{remainingReplies.length}} more comments</button>
+            </div>
+        </div>
+    </div>
+</div>

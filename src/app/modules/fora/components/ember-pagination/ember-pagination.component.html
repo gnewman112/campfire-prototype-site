@@ -1,0 +1,9 @@
+<div class="emberPaging" [ngClass]="(buttonsHidden | async) ? 'buttonsHidden' : 'buttonsVisible'">
+    <button mat-mini-fab [disabled]="upDisabled | async" id="emberPageUp">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+    </button>
+  
+    <button mat-mini-fab [disabled]="downDisabled | async" id="emberPageDown">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+</div>

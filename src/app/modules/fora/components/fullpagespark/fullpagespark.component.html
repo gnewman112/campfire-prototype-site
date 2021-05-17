@@ -1,0 +1,195 @@
+<div id="fullPageContainer">
+    <div id="postContainer">
+        <div id="votes">
+            <button mat-icon-button (click)="vote(true)" [color]="data.spark.likes ? 'accent': 'default'" class="vote upvote">
+                <mat-icon>arrow_upward</mat-icon>
+            </button>
+            <h3 class="sparkScore">{{score}}</h3>
+            <button mat-icon-button (click)="vote(false)" [color]="data.spark.likes==false ? 'warn' : 'default'" class="vote downvote">
+                <mat-icon>arrow_downward</mat-icon>
+            </button>
+        </div>
+
+        <div id="mainContainer">
+            <div id="header">
+                <mat-card-title-group>
+                    <mat-card-title class="headerText">{{data.spark.title}}</mat-card-title>
+                    <mat-card-subtitle class="headerText">by u/{{data.spark.author}} on {{data.spark.subreddit_name_prefixed}} {{data.spark.createdString}}</mat-card-subtitle>
+                </mat-card-title-group>
+            </div>
+
+            <div class="flair">
+                <span *ngIf="data.spark.over_18" class="NSFW">NSFW</span>
+
+                <span *ngIf="data.spark.spoiler" class="spoiler">
+                    <mat-icon>visibility_off</mat-icon>
+                    <h5>Spoiler</h5>
+                </span>
+
+                <span *ngIf="data.spark.distinguished == 'moderator'" class="mod">
+                    <mat-icon>supervisor_account</mat-icon>
+                    <h5>Moderator</h5>
+                </span>
+
+                <span *ngIf="data.spark.is_original_content" class="oc">
+                    <h5>OC</h5>
+                </span>
+
+                <span *ngIf="data.spark.archived" class="defaultFlair">
+                    <mat-icon>archive</mat-icon>
+                    <h5>Archived</h5>
+                </span>
+
+                <span *ngIf="data.spark.locked" class="defaultFlair">
+                    <mat-icon>lock</mat-icon>
+                    <h5>Locked</h5>
+                </span>
+
+                <span *ngIf="data.spark.pinned" class="defaultFlair">
+                    <mat-icon>push_pin</mat-icon>
+                    <h5>Pinned</h5>
+                </span>
+
+                <span *ngIf="data.spark.stickied" class="defaultFlair">
+                    <mat-icon>push_pin</mat-icon>
+                    <h5>Stickied</h5>
+                </span>
+
+                <span *ngIf="data.spark.edited" class="defaultFlair">
+                    <h5>Edited {{data.spark.editedString}}</h5>
+                </span>
+            </div>
+
+            <div class="contentContainer" id="{{data.spark.name + 'fp_content'}}">
+                <ng-container [ngSwitch]="data.blur">
+                    <ng-container *ngSwitchCase="true">
+                        <div class="nsfwContent" id="'fp_nsfw' + data.spark.name">
+                            <div class="nsfwText">
+                                <h1>NSFW</h1>
+                                <h3>Double Click to View</h3>
+                            </div>
+                
+                            <div class="blur" id="{{data.spark.name + 'fp_nsfw'}}">
+                                <ng-container *ngTemplateOutlet="standardContent"></ng-container>
+                            </div>
+                        </div>
+                    </ng-container>
+                
+                    <ng-container *ngSwitchCase="false">
+                        <ng-container *ngTemplateOutlet="standardContent"></ng-container>
+                    </ng-container>
+                </ng-container>
+            </div>
+        
+            <ng-template #standardContent [ngSwitch]="data.postType">
+                <div class="standardContent">
+                    <img *ngSwitchCase="'image'" [src]="data.spark.url" [alt]="data.spark.title" id="{{data.spark.name + 'fp_image'}}">
+        
+                    <div *ngSwitchCase="'hostedvideo'" class="video">
+                        <video controls id="{{data.spark.name + 'fp_hostedvideo'}}">
+                            <source [src]="data.contentURL" [title]="data.spark.title">
+                        </video>
+                    </div>
+        
+                    <div *ngSwitchCase="'richvideo'" [innerHTML]="data.contentHTML" class="frame" id="{{data.spark.name + 'fp_richvideo'}}"></div>
+        
+                    <div *ngSwitchCase="'crosspost'" id="{{data.spark.name + 'fp_crosspost'}}">
+                        <app-spark [spark]="data.spark.crosspost_parent_list[0]" [isCrosspostChild]="true"></app-spark>
+                    </div>
+        
+                    <div *ngSwitchCase="'videopreview'" class="video">
+                        <video controls id="{{data.spark.name + 'fp_videopreview'}}">
+                            <source [src]="data.contentURL" [title]="data.spark.title">
+                        </video>
+                    </div>
+
+                    <div *ngSwitchCase="'poll'" class="selftext" id="{{data.spark.name + 'fp_poll'}}">
+                        <h1>Reddit Poll:</h1>
+                        <ng-container *ngFor="let option of data.spark.poll_data.options; index as index">
+                            <h3>{{index + 1}}) {{option.text}}</h3>
+                        </ng-container>
+                        <div *ngIf="data.spark.selftext_html"
+                            [innerHTML]="data.contentHTML">
+                        </div>
+                    </div>        
+        
+                    <div *ngSwitchCase="'selftext'" class="selftext" id="{{data.spark.name + 'fp_selftext'}}"
+                        [innerHTML]="data.contentHTML" >
+                    </div>
+        
+                    <img *ngSwitchCase="'hostedimage'" [src]="data.spark.url" [alt]="data.spark.title" id="{{data.spark.name + 'fp_hostedimage'}}">
+        
+                    <div *ngSwitchCase="'gallery'" id="{{data.spark.name + 'fp_gallery'}}">
+                        <div class="galleryContainer" id="{{this.data.spark.name + 'fp_fullGallery'}}">
+                            <div class="gallery">
+                                <ng-container *ngFor="let image of data.galleryImgArray; index as index;">
+                                    <div [ngClass]="galleryIndex == index ? 'displayedImage' : 'hiddenImage'">
+                                        <img [src]="image.src" [alt]="image.caption">
+                                    </div>
+                                </ng-container>
+                            </div>
+                            
+                            <button mat-mini-fab (click)="changeGalleryImage(false)" color="primary" id="previous"><mat-icon>navigate_before</mat-icon></button>
+                            <button mat-mini-fab (click)="changeGalleryImage(true)" color="primary" id="next"><mat-icon>navigate_next</mat-icon></button>
+                            
+                            <h3 id="galleryIndex">{{galleryIndex + 1}}/{{data.galleryImgArray.length}}</h3>
+                        </div>
+                    </div>
+        
+                    <div *ngSwitchCase="'externallink'" class="externalLink" id="{{data.spark.name + 'fp_externallink'}}">
+                        <a href="{{data.spark.url}}" rel="noopener" target="_blank" class="linkText">
+                            <h3>{{data.spark.url}}</h3>
+                        </a>
+        
+                        <a *ngIf="includeThumbnail" href="{{data.spark.url}}" rel="noopener" target="_blank">
+                            <div class="thumbnail">
+                                <img [src]="data.spark.thumbnail" [alt]="data.spark.title">
+                                <mat-icon class="excludeIcon">open_in_new</mat-icon>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </ng-template>
+
+            <div id="actions">
+                <a mat-button href="{{'https://www.reddit.com' + this.data.spark.permalink}}" rel="noopener" target="_blank">
+                    <mat-icon class="action_icon">open_in_new</mat-icon>
+                    <h5>View on Reddit</h5>
+                </a>
+                
+                <button mat-button (click)="copyLinkToClipboard()">
+                    <mat-icon class="action_icon">link</mat-icon>
+                    <h5>Copy Link</h5>
+                </button>
+
+                <h5 id="upvoteRatio">{{data.spark.upvote_ratio * 100}}% upvoted</h5>
+                <h5 id="disabledReply">{{num_comments}} Comments</h5>
+
+                <span class="spacer"></span>
+
+                <span *ngIf="allowToggle" class="fitToggle">
+                    <h4 class="toggleText">Fit content by: </h4>
+                    <span class="toggleState">
+                        <h5 class="toggleText">Width </h5>
+                        <mat-slide-toggle checked="true" (change)="toggleFitContent($event.checked)"></mat-slide-toggle>
+                        <h5 class="toggleText"> Height</h5>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div id="comments">
+        <ng-container *ngFor="let comment of loadedComments">
+            <app-comment [comment]="comment"></app-comment>
+        </ng-container>
+
+        <div *ngIf="loadingComments && !errorComments" class="loading">
+            <h1 >Loading...</h1>
+        </div>
+
+        <div *ngIf="!loadingComments && errorComments">
+            <h1 class="loadingError">Loading error. No comments available.</h1>
+        </div>
+    </div>
+</div>

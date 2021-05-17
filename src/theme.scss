@@ -1,0 +1,46 @@
+@import '~@angular/material/theming';
+@import '~zzz-styling/styling';
+
+$my-primary: mat-palette($mat-blue-grey, 800, 700, 900);
+$my-accent: mat-palette($mat-light-green, 700, 600, 900);
+$my-warn: mat-palette($mat-orange, 600);
+
+// Foreground palette for light themes.
+$my-foreground: (
+  base:              black,
+  divider:           $dark-dividers,
+  dividers:          $dark-dividers,
+  disabled:          $dark-disabled-text,
+  disabled-button:   rgba(black, 0.26),
+  disabled-text:     $dark-disabled-text,
+  elevation:         black,
+  hint-text:         $dark-disabled-text,
+  secondary-text:    $dark-secondary-text,
+  icon:              rgba(black, 0.54),
+  icons:             rgba(black, 0.54),
+  text:              rgba(black, 0.87),
+  slider-min:        rgba(black, 0.87),
+  slider-off:        rgba(black, 0.26),
+  slider-off-active: rgba(black, 0.38),
+);
+
+// Background palette for light themes.
+$my-background: (
+  status-bar: map_get($mat-blue-grey, 300),
+  app-bar:    map_get($mat-blue-grey, 200),
+  background: map_get($mat-blue-grey, 50),
+  hover:      rgba(black, 0.04), // TODO(kara): check style with Material Design UX
+  card:       white,
+  dialog:     white,
+  disabled-button: rgba(black, 0.12),
+  raised-button: white,
+  focused-button: $dark-focused,
+  selected-button: map_get($mat-blue-grey, 300),
+  selected-disabled-button: map_get($mat-blue-grey, 400),
+  disabled-button-toggle: map_get($mat-blue-grey, 200),
+  unselected-chip: map_get($mat-blue-grey, 300),
+  disabled-list-option: map_get($mat-blue-grey, 200),
+  tooltip: map_get($mat-blue-grey, 600),
+);
+
+$my-theme: new-mat-light-theme($my-primary, $my-accent, $my-warn, $my-foreground, $my-background);

@@ -1,0 +1,65 @@
+<mat-accordion>
+    <mat-expansion-panel class="panel" [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>Streams from Reddit</mat-panel-title>
+            <mat-panel-description>Start a Stream from Reddit</mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div id="buttonContainer">
+            <button mat-raised-button [disabled]="disableButton(subreddit)"
+            *ngFor="let subreddit of RedditService.baseSubreddits" 
+            [matMenuTriggerFor]="redditSortMenu" [matMenuTriggerData]="{subreddit: subreddit}"
+            matTooltip="Add {{subreddit}}" matTooltipShowDelay="600">
+                <h2>{{subreddit}}</h2>
+            </button>
+            
+            <button mat-raised-button [disabled]="disableButton(subredditEntries.key)"
+            *ngFor="let subredditEntries of RedditService.subredditMap | keyvalue: keyAscOrder" 
+            [matMenuTriggerFor]="redditSortMenu" [matMenuTriggerData]="{subreddit: subredditEntries.key}"
+            matTooltip="Add {{subredditEntries.key}}" matTooltipShowDelay="600">
+                <img [src]="subredditEntries.value.icon_img" height="37px" width="37px" onerror="this.style.display='none'">
+                <h2>r/{{subredditEntries.key}}</h2>
+            </button>
+
+            <ng-container *ngIf="!RedditService.subredditMap.size && this.RedditService.redditAccountExists | async">
+                <h1>Loading error. No subreddits available.</h1>
+            </ng-container>
+        </div>
+
+        <div id="redditControls">
+            <button class="extended-fab-button" mat-fab color="primary"
+                *ngIf="(this.RedditService.redditAccountExists | async) == false" (click)="this.RedditService.addRedditAccount()">
+                <mat-icon>account_box</mat-icon>
+                <span class="extended-fab-button__text">Add Account</span>
+            </button>
+            
+            <button class="extended-fab-button" mat-fab color="primary"
+                *ngIf="this.RedditService.redditAccountExists | async" (click)="this.RedditService.getSubreddits(true).subscribe()">
+                <mat-icon>refresh</mat-icon>
+                <span class="extended-fab-button__text">Refresh List</span>
+            </button>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
+
+<mat-menu #redditSortMenu="matMenu">
+    <ng-template matMenuContent let-subreddit="subreddit">
+        <h5 id="sortHeader">Sort {{subreddit}} by:</h5>   
+        <button mat-menu-item (click)="addStream('reddit', subreddit, 'new')">New</button>
+        <button mat-menu-item (click)="addStream('reddit', subreddit, 'rising')">Rising</button>
+        <button mat-menu-item (click)="addStream('reddit', subreddit, 'hot')">Hot</button>
+        <button mat-menu-item *ngIf="subreddit == 'Home'" (click)="addStream('reddit', subreddit, 'best')">Best</button>
+        <button mat-menu-item [matMenuTriggerFor]="topTimeMenu" [matMenuTriggerData]="{subreddit: subreddit}">Top</button>
+    </ng-template>
+</mat-menu>
+
+<mat-menu #topTimeMenu="matMenu">
+    <ng-template matMenuContent let-subreddit="subreddit">
+        <button mat-menu-item (click)="addStream('reddit', subreddit, 'top', 'hour')">This Hour</button>
+        <button mat-menu-item (click)="addStream('reddit', subreddit, 'top', 'day')">Today</button>
+        <button mat-menu-item (click)="addStream('reddit', subreddit, 'top', 'week')">This Week</button>
+        <button mat-menu-item (click)="addStream('reddit', subreddit, 'top', 'month')">This Month</button>
+        <button mat-menu-item (click)="addStream('reddit', subreddit, 'top', 'year')">This Year</button>
+        <button mat-menu-item (click)="addStream('reddit', subreddit, 'top', 'all')">All Time</button>
+    </ng-template>
+</mat-menu>

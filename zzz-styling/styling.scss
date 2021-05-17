@@ -1,0 +1,56 @@
+@import '~@angular/material/theming';
+
+
+@mixin add-theme-css($my-theme) {
+    @include angular-material-theme($my-theme);
+}
+
+@function new-mat-light-theme($primary, $accent, $warn: null, $light-theme-foreground: null, $light-theme-background: null) {
+    @if $warn == null {
+        $warn: mat-palette($mat-red);
+    }
+
+    @if $light-theme-foreground == null {
+        $light-theme-foreground: $mat-light-theme-foreground;
+    }
+
+    @if $light-theme-background == null {
+        $light-theme-background: $mat-light-theme-background;
+    }
+
+    $my-theme: (
+        primary: $primary,
+        accent: $accent,
+        warn: $warn,
+        is-dark: false,
+        foreground: $light-theme-foreground,
+        background: $light-theme-background,
+    );
+
+    @return $my-theme;
+}
+
+@function new-mat-dark-theme($primary, $accent, $warn: null, $light-theme-foreground: null, $light-theme-background: null) {
+    @if $warn == null {
+        $warn: mat-palette($mat-red);
+    }
+
+    @if $light-theme-foreground == null {
+        $light-theme-foreground: $mat-dark-theme-foreground;
+    }
+
+    @if $light-theme-background == null {
+        $light-theme-background: $mat-dark-theme-background;
+    }
+
+    $my-theme: (
+        primary: $primary,
+        accent: $accent,
+        warn: $warn,
+        is-dark: true,
+        foreground: $light-theme-foreground,
+        background: $light-theme-background,
+    );
+
+    @return $my-theme;
+}
