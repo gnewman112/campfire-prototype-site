@@ -4,7 +4,16 @@ Screenshots of this project are on my resume website [here](https://gregnewman.i
 
 ## Introduction
 
-'campfire-prototype-site' was the first website I ever made and my first Angular project.
+'campfire-prototype-site' was the first website I ever made and my first Angular project. I have included it here as a sample of my work.
+
+## Where to start
+
+Either use the file structure diagram included below as a guide, or I'd recommend starting with the following two files. They showcase my ability to manage complexity and break problems into simple manageable steps (in both cases with Observables).
+
+[src/app/modules/fora/components/ember/ember.component.ts](https://github.com/gnewman112/campfire-prototype-site/blob/main/src/app/modules/fora/components/ember/ember.component.ts)
+
+[src/app/modules/fora/services/reddit/reddit.service.ts](https://github.com/gnewman112/campfire-prototype-site/blob/main/src/app/modules/fora/services/reddit/reddit.service.ts)
+
 
 ## Project Status
 
@@ -21,7 +30,7 @@ The next steps are:
 Frontend:
 * Angular 9 (typescript, HTML, SCSS)
 * Angular Material
-* [Okta Angular SDK](npmjs.com/package/@okta/okta-angular)
+* [Okta Angular SDK](https://npmjs.com/package/@okta/okta-angular)
 * [InfiniteScrollModule](https://www.npmjs.com/package/ngx-infinite-scroll)
 
 Backend:
@@ -50,7 +59,7 @@ For simplicity some files/folders are ommited below.
     |    |-- modules
     |        |-- fora
     |        |    |-- components
-    |        |       |-- [+] add-ember-menu
+    |        |        |-- [+] add-ember-menu
     |        |        |-- [+] comment
     |        |        |-- [+] ember
     |        |        |-- [+] ember-pagination
@@ -80,8 +89,8 @@ For simplicity some files/folders are ommited below.
     |-- theme-colors.scss
 ```
 
-Also, 'zzz-styling' was made so that I could access the theme used in Angular Material from any component. This was put at the end of the node_modules folder. All in all it worked and was good practice with SCSS, but was a strange way to avoid circular imports or breaking Material theming.
+Also, 'zzz-styling' was made so that I could access the theme used in Angular Material from any component's stylesheet. In this project I added it to the node_modules folder. All in all it worked and was good practice understanding and writing SCSS, but was a strange way to avoid circular imports or breaking Material theming.
 
 
 
-### Thanks for visiting!
+### Thank you for visiting!
