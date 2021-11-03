@@ -37,6 +37,7 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 
 export class AppComponent implements OnInit {
+  title = 'Campfire';
   isAuthenticated: boolean;
   isHamburger: boolean = true;
   onAboutPage: boolean = false;
