@@ -1,28 +1,11 @@
-html, body{
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-}
-
-body {
-  overflow-y: hidden;
-
-  * {
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  }
-}
-
-::-webkit-scrollbar { 
-    width: 0;
-    height: 0;
-}
-
 @import '~@angular/material/theming';
-@import '~zzz-styling/styling.scss';
-@import './theme.scss';
-@include add-theme-css($my-theme);
 
+$my-primary: mat-palette($mat-blue-grey, 800, 700, 900);
+$my-accent: mat-palette($mat-light-green, 700, 600, 900);
+$my-warn: mat-palette($mat-orange, 600);
+
+$my-theme: mat-light-theme($my-primary, $my-accent, $my-warn);
+@include angular-material-theme($my-theme);
 
 // Change index.html if more fonts or font weights are needed
 $custom-typography: mat-typography-config(
@@ -45,7 +28,25 @@ $custom-typography: mat-typography-config(
 @include angular-material-typography($custom-typography);
 @include mat-core($custom-typography);
 
+html, body{
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
 
+body {
+overflow-y: hidden;
+
+* {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+}
+
+::-webkit-scrollbar { 
+  width: 0;
+  height: 0;
+}
 
 pre { white-space: pre-wrap;}
 

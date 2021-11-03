@@ -84,13 +84,7 @@ For simplicity some files/folders are ommited below.
     |-- proxy.conf.json
     |-- styles.scss
     |-- theme.scss
-|-- zzz-styling
-    |-- styling.scss
-    |-- theme-colors.scss
 ```
-
-Also, 'zzz-styling' was made so that I could access the theme used in Angular Material from any component's stylesheet. In this project I added it to the node_modules folder. All in all it worked and was good practice understanding and writing SCSS, but was a strange way to avoid circular imports or breaking Material theming.
-
 
 
 ### Thank you for visiting!
