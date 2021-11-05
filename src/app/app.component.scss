@@ -60,7 +60,7 @@
     flex: 1 1 auto;
 }
 
-a.active {
+a.active, button.active {
     background-color: rgba(0,0,0, 0.3);
 }
 
