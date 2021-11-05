@@ -17,21 +17,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 
-//Components Import
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { AppConfigService } from './services/app-config.service';
-import { AboutThisSiteComponent } from './components/about-this-site/about-this-site.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    PageNotFoundComponent,
-    AboutThisSiteComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
