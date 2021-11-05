@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
     });
 
     this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd && event.urlAfterRedirects == '/about_this_site')) {
+      if (event instanceof NavigationEnd && event.urlAfterRedirects == '/about_this_site') {
         this.onAboutPage = true;
       } else if (event instanceof NavigationEnd) {
         this.onAboutPage = false;
