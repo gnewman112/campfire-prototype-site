@@ -1,5 +1,5 @@
 <mat-toolbar class="appToolbar" [ngClass]="{'aboutToolbar' : onAboutPage}" id="toolbar">
-  <a [routerLink]="['home']" id="homeLink">
+  <a routerLink="/" id="homeLink">
     <img src="assets\Name.png" id="homeImage">
     <span id="homeText">Campfire</span>
   </a>
@@ -14,48 +14,28 @@
   </button>
 
   
-  <a mat-button      [routerLink]="['home']" class="toolbarButton"
-    routerLinkActive="active">HOME
-  </a>
+  <a mat-button routerLink="/" class="toolbarButton">HOME</a>
 
-  <a mat-button      [routerLink]="['about_this_site']" class="toolbarButton"
-    routerLinkActive="active">ABOUT THIS SITE
-  </a>
+  <a mat-button routerLink="/about_this_site" routerLinkActive="active" class="toolbarButton">ABOUT THIS SITE</a>
 
-  <a mat-button      [routerLink]="['fora']" class="toolbarButton"
-    routerLinkActive="active" *ngIf="isAuthenticated">FORA
-  </a>
+  <a mat-button routerLink="/fora" routerLinkActive="active" class="toolbarButton" *ngIf="isAuthenticated">FORA</a>
 
-  <button mat-button [routerLink]="['login']" class="toolbarButton"
-    *ngIf="!isAuthenticated">LOGIN
-  </button>
+  <button mat-button routerLink="/login" routerLinkActive="active" class="toolbarButton" *ngIf="!isAuthenticated">LOGIN</button>
 
-  <button mat-button (click)="logout()" class="toolbarButton"
-    *ngIf="isAuthenticated">LOGOUT
-  </button>
+  <button mat-button (click)="logout()" class="toolbarButton" *ngIf="isAuthenticated">LOGOUT</button>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
 
 
 <mat-menu #buttonsMenu="matMenu">
-  <a mat-menu-item      [routerLink]="['home']" class="dropdownButton"
-    routerLinkActive="active">HOME
-  </a>
+  <a mat-menu-item routerLink="/" routerLinkActive="active" class="dropdownButton">HOME</a>
 
-  <a mat-menu-item      [routerLink]="['about_this_site']" class="dropdownButton"
-    routerLinkActive="active">ABOUT THIS SITE
-  </a>
+  <a mat-menu-item routerLink="/about_this_site" routerLinkActive="active" class="dropdownButton">ABOUT THIS SITE</a>
 
-  <a mat-menu-item      [routerLink]="['fora']" class="dropdownButton"
-    routerLinkActive="active" *ngIf="isAuthenticated">FORA
-  </a>
+  <a mat-menu-item routerLink="/fora" class="dropdownButton" *ngIf="isAuthenticated">FORA</a>
 
-  <button mat-menu-item [routerLink]="['login']" class="dropdownButton"
-    *ngIf="!isAuthenticated">LOGIN
-  </button>
+  <button mat-menu-item routerLink="login" routerLinkActive="active" class="dropdownButton" *ngIf="!isAuthenticated">LOGIN</button>
 
-  <button mat-menu-item (click)="logout()" class="dropdownButton"
-    *ngIf="isAuthenticated">LOGOUT
-  </button>
+  <button mat-menu-item (click)="logout()" class="dropdownButton" *ngIf="isAuthenticated">LOGOUT</button>
 </mat-menu>
