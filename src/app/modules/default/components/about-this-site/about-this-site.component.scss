@@ -1,0 +1,44 @@
+#atsParent {
+    display: flex;
+    flex-flow: row nowrap;
+    position: relative;
+    top: 2rem;
+    height: calc(100vh - 2rem);
+    background-color: black;
+    color: green;
+}
+
+.atsSpacer {
+    flex: 1 1 30%;
+}
+
+.atsPage {
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: column nowrap;
+    margin: 1em 1em 0;
+    overflow: hidden scroll;
+
+    .atsParagraph > *:not(h1) {
+        margin-left: 1.5em;
+    }
+
+    .atsParagraph { margin-bottom: 0.5em; }
+    .atsLast { margin-bottom: 1em;}
+}
+
+h1, p, li, a { 
+    font: 400 24px/1.1em "VT323", monospace;
+    letter-spacing: 1px;
+    color: green;
+    text-shadow: 0 0 3px #209020;
+}
+
+h1 { font-size: 32px; }
+p { font-size: 22px; }
+
+@media (max-width: 800px) {
+    h1 {font-size: 24px;}
+    li, a {font-size: 20px;}
+    p {font-size: 16px;}
+}
