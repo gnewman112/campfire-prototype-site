@@ -51,12 +51,15 @@ For simplicity some files/folders are ommited below.
 ```
 |-- src
     |-- app
-    |    |-- components
-    |        |-- [+] about-this-site
-    |        |-- [+] home
-    |        |-- [+] login
-    |        |-- [+] page-not-found
     |    |-- modules
+    |        |-- default
+    |        |    |-- components
+    |        |        |-- [+] about-this-site
+    |        |        |-- [+] home
+    |        |        |-- [+] login
+    |        |        |-- [+] page-not-found
+    |        |    |-- default-routing.module.ts
+    |        |    |-- default.module.ts
     |        |-- fora
     |        |    |-- components
     |        |        |-- [+] add-ember-menu
